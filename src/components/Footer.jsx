@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'react-emotion';
+import React from "react";
+import styled from "react-emotion";
 
 const Wrapper = styled.footer`
   margin: 5rem 0;
@@ -11,11 +11,11 @@ const Wrapper = styled.footer`
   }
 `;
 
+var myDate = new Date();
+
 const Footer = () => (
   <Wrapper>
-    Copyright &copy; 2018. All right reserved. Pictures by Unsplash.{' '}
-    <a href="https://github.com/LekoArts/gatsby-starter-portfolio-emma">Emma Theme</a> {' by '}{' '}
-    <a href="https://www.lekoarts.de">LekoArts</a>.
+    Copyright &copy; 2018. All right reserved. Coded by 🤚 with lots of ❤️
   </Wrapper>
 );
 

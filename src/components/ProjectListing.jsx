@@ -1,21 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
-import styled from 'react-emotion';
-import Img from 'gatsby-image';
-import sample from 'lodash/sample';
-import { overlay } from '../../config/theme';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "gatsby";
+import styled from "react-emotion";
+import Img from "gatsby-image";
+import sample from "lodash/sample";
+import { overlay } from "../../config/theme";
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  width: 100%;
+  width: ${props => props.theme.container[props.type]};
+  margin: 0 auto;
 `;
 
 const Item = styled.div`
   position: relative;
   &:before {
-    content: '';
+    content: "";
     display: block;
     padding-top: 100%;
   }
@@ -74,14 +75,16 @@ const Overlay = styled.div`
 `;
 
 const ProjectListing = ({ projectEdges }) => (
-  <Wrapper>
+  <Wrapper type="text">
     {projectEdges.map(project => {
       const overlayColor = sample(overlay);
       return (
         <Item key={project.node.fields.slug}>
           <Content>
             <ImageWrapper>
-              <Img fluid={project.node.frontmatter.cover.childImageSharp.fluid} />
+              <Img
+                fluid={project.node.frontmatter.cover.childImageSharp.fluid}
+              />
             </ImageWrapper>
             <Link to={project.node.fields.slug}>
               <Overlay style={{ backgroundColor: overlayColor }} />
@@ -98,5 +101,5 @@ const ProjectListing = ({ projectEdges }) => (
 export default ProjectListing;
 
 ProjectListing.propTypes = {
-  projectEdges: PropTypes.array.isRequired,
+  projectEdges: PropTypes.array.isRequired
 };

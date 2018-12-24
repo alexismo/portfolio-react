@@ -5,6 +5,16 @@ import Header from "./Header";
 import Layout from "./Layout";
 import Navigation from "./Navigation";
 import ProjectListing from "./ProjectListing";
+import Welcome from "./Welcome";
 import SEO from "./SEO";
 
-export { Container, Footer, Header, Layout, Navigation, ProjectListing, SEO };
+export {
+  Container,
+  Footer,
+  Header,
+  Layout,
+  Navigation,
+  ProjectListing,
+  Welcome,
+  SEO
+};
