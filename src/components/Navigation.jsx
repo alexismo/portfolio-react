@@ -35,11 +35,10 @@ const active = css`
 `;
 
 const NameContainer = styled.div`
-  flex-grow: 1;
+  width: calc(100% * (10 / 12));
   display: flex;
-  flex: 1;
   flex-direction: column;
-  justify-content: center;
+  background-color: ${theme.brand.primary};
   a {
     font-size: 23px;
     color: ${props => props.theme.colors.white};
@@ -124,7 +123,7 @@ const SocialMedia = styled.div`
     order: 3;
   }
 `;
-
+/*
 const Navigation = () => (
   <Header>
     <HeaderContent>
@@ -189,6 +188,35 @@ const Navigation = () => (
       </SocialMedia>
     </HeaderContent>
   </Header>
+);
+*/
+// writing the design for the 2019 design down here
+
+const Card = styled.div`
+  background-color: ${theme.cardSurface};
+  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.15);
+  border-radius: ${theme.radius};
+  overflow: hidden;
+`;
+
+const Navigation = () => (
+  <Card
+    style={{
+      display: "flex",
+      justifyContent: "flex-end",
+      marginTop: "56px",
+      width: "960px",
+      borderTopLeftRadius: 0,
+      borderBottomLeftRadius: 0
+    }}
+  >
+    <NameContainer>
+      <Link to="/">
+        <Name>{config.siteTitle}</Name>
+        <JobName>Designer</JobName>
+      </Link>
+    </NameContainer>
+  </Card>
 );
 
 export default Navigation;

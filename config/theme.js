@@ -1,15 +1,16 @@
 import { darken, lighten } from "polished";
 
 const brand = {
-  primary: "#444449",
-  secondary: "#7b8acc"
+  primary: "#41D3BD",
+  secondary: "#32A190",
+  text: "#3CC2AE"
 };
 
 const colors = {
   grey: "#444449",
   black: "#000",
   white: "#FFF",
-  bg_color: "#f3f3f3",
+  cardSurface: "#FFFFF7",
   body_color: "#222",
   link_color: brand.primary,
   link_color_hover: `${lighten(0.46, brand.primary)}`
@@ -42,7 +43,8 @@ const theme = {
   spacer: {
     horizontal: "2rem",
     vertical: "3rem"
-  }
+  },
+  radius: "6px"
 };
 
 export default theme;
