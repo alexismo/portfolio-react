@@ -1,9 +1,10 @@
 ---
-client: "SmartTriangle"
-title: "SmartTriangle - Make Triangles smart!"
-cover: "./smartTriangle.jpg"
-date: "2017-10-27"
-service: "Art Direction"
+client: "EF"
+title: "English Live"
+cover: "./blobSphere.jpg"
+date: "2015-03"
+service: "Interaction Designer"
+color: "englishlive"
 ---
 ## Description
 

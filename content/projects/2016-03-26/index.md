@@ -1,9 +1,10 @@
 ---
-client: "LekoArts"
-title: "LekoArts - Your theme creator!"
+client: "Jaguar"
+title: "Art of Performance"
 cover: "./lekoarts.jpg"
-date: "2017-10-28"
-service: "Theme"
+date: "2016-03"
+role: "Creative Developer"
+color: "jaguar"
 ---
 ## Description
 

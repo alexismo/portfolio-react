@@ -16,8 +16,10 @@ const Wrapper = styled.div`
 */
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 40px;
   margin: 0 auto;
   width: 960px;
 `;
@@ -84,7 +86,7 @@ const Overlay = styled.div`
 const ProjectListing = ({ projectEdges }) => (
   <Wrapper type="text">
     {projectEdges.map(project => {
-      const overlayColor = sample(overlay);
+      const overlayColor = overlay[project.node.frontmatter.color];
       return (
         <Item
           key={project.node.fields.slug}

@@ -1,9 +1,10 @@
 ---
-client: "BlobSphere"
-title: "BlobSphere - Make Spheres blob!"
-cover: "./blobSphere.jpg"
-date: "2017-10-25"
-service: "App Design"
+client: "JBL"
+title: "AmpUp!"
+cover: "./smartTriangle.jpg"
+date: "2012-02"
+service: "Interaction Designer"
+color: "ampup"
 ---
 ## Description
 

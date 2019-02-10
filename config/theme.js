@@ -15,16 +15,13 @@ const colors = {
   link_color_hover: `${lighten(0.46, brand.primary)}`
 };
 
-export const overlay = [
-  "#f76262",
-  "#216583",
-  "#65c0ba",
-  "#35477d",
-  "#6c5b7b",
-  "#203541",
-  "#9951ff",
-  "#480032"
-];
+export const overlay = {
+  jaguar: "#E0231F",
+  bombardier: "#D19000",
+  classroom: "#1a7fff",
+  englishlive: "#38ddb9",
+  ampup: "#f60"
+};
 
 const theme = {
   brand,
