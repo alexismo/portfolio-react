@@ -33,8 +33,9 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            role
             client
+            title
+            role
             color
             cover {
               childImageSharp {

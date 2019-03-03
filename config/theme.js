@@ -16,7 +16,7 @@ const colors = {
   link_color_hover: `${lighten(0.46, brand.primary)}`
 };
 
-export const overlay = {
+const overlay = {
   jaguar: "#E0231F",
   bombardier: "#D19000",
   classroom: "#1a7fff",
@@ -26,6 +26,7 @@ export const overlay = {
 
 const theme = {
   brand,
+  overlay,
   colors,
   breakpoints: {
     xs: "400px",
