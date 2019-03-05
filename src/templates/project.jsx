@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'react-emotion';
-import { graphql } from 'gatsby';
-import Helmet from 'react-helmet';
-import { Container, SEO, Layout } from 'components';
-import sample from 'lodash/sample';
-import config from '../../config/website';
-import { overlay } from '../../config/theme';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "@emotion/styled";
+import { graphql } from "gatsby";
+import Helmet from "react-helmet";
+import { Container, SEO, Layout } from "components";
+import sample from "lodash/sample";
+import config from "../../config/website";
+import theme from "../../config/theme";
 
-const overlayColor = sample(overlay);
+const overlayColor = sample(theme.colors.overlay);
 
 const Wrapper = styled.section`
   text-align: center;
@@ -29,7 +29,8 @@ const InformationWrapper = styled.div`
 const InfoBlock = styled.div`
   display: flex;
   flex-direction: column;
-  margin: ${props => props.theme.spacer.vertical} ${props => props.theme.spacer.horizontal} 0
+  margin: ${props => props.theme.spacer.vertical}
+    ${props => props.theme.spacer.horizontal} 0
     ${props => props.theme.spacer.horizontal};
 `;
 
@@ -44,7 +45,10 @@ const Bottom = styled.div`
   font-size: 125%;
 `;
 
-const Project = ({ pageContext: { slug }, data: { markdownRemark: postNode } }) => {
+const Project = ({
+  pageContext: { slug },
+  data: { markdownRemark: postNode }
+}) => {
   const project = postNode.frontmatter;
   return (
     <Layout>
@@ -78,11 +82,11 @@ export default Project;
 
 Project.propTypes = {
   pageContext: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired
   }).isRequired,
   data: PropTypes.shape({
-    markdownRemark: PropTypes.object.isRequired,
-  }).isRequired,
+    markdownRemark: PropTypes.object.isRequired
+  }).isRequired
 };
 
 export const pageQuery = graphql`

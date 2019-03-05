@@ -7,7 +7,8 @@ import {
   FaTwitter,
   FaDribbble
 } from "react-icons/fa";
-import styled, { css } from "react-emotion";
+import styled from "@emotion/styled";
+import { css } from "@emotion/core";
 import config from "../../config/website";
 import theme from "../../config/theme";
 
@@ -15,10 +16,9 @@ const Header = styled.div`
   position: fixed;
   width: 100%;
   margin: 80px 0 0 0;
-  background-color: ${props => props.theme.colors.grey};
+  background-color: ${theme.colors.grey};
   z-index: 100;
-  transition: ${props => props.theme.duration.short}
-    cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: ${theme.duration.short} cubic-bezier(0.2, 0.8, 0.2, 1);
 `;
 
 const HeaderContent = styled.div`
@@ -41,12 +41,12 @@ const NameContainer = styled.div`
   background-color: ${theme.brand.primary};
   a {
     font-size: 23px;
-    color: ${props => props.theme.colors.white};
+    color: ${theme.colors.white};
     text-decoration: none;
     font-family: ${`${config.headerFontFamily}, sans-serif`};
     line-height: 1;
   }
-  @media (max-width: ${props => props.theme.breakpoints.xs}) {
+  @media (max-width: ${theme.breakpoints.xs}) {
     order: 1;
     flex: 1 0 100%;
     margin-bottom: 0.75rem;
@@ -77,7 +77,7 @@ const Nav = styled.nav`
   flex: 1;
   justify-content: flex-start;
   a {
-    color: ${props => props.theme.colors.white};
+    color: ${theme.colors.white};
     text-align: center;
     text-decoration: none;
     font-weight: normal;
@@ -89,10 +89,10 @@ const Nav = styled.nav`
   a:not(:first-child) {
     margin-left: 1rem;
   }
-  @media (max-width: ${props => props.theme.breakpoints.s}) {
+  @media (max-width: ${theme.breakpoints.s}) {
     padding: 0 1rem;
   }
-  @media (max-width: ${props => props.theme.breakpoints.xs}) {
+  @media (max-width: ${theme.breakpoints.xs}) {
     order: 2;
   }
 `;
@@ -107,19 +107,19 @@ const SocialMedia = styled.div`
   a {
     font-size: 1.25rem;
     line-height: 20px;
-    color: ${props => props.theme.colors.white};
-    transition: ${`color ${props => props.theme.duration.short}, ease`};
+    color: ${theme.colors.white};
+    transition: ${`color ${theme.duration.short}, ease`};
   }
   a:hover {
-    color: ${props => props.theme.colors.link_color_hover};
+    color: ${theme.colors.link_color_hover};
   }
   a:not(:first-child) {
     margin-left: 1rem;
   }
-  @media (max-width: ${props => props.theme.breakpoints.s}) {
+  @media (max-width: ${theme.breakpoints.s}) {
     padding: 0 1rem;
   }
-  @media (max-width: ${props => props.theme.breakpoints.xs}) {
+  @media (max-width: ${theme.breakpoints.xs}) {
     order: 3;
   }
 `;
