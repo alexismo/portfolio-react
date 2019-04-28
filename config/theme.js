@@ -44,8 +44,7 @@ const theme = {
   spacer: {
     horizontal: "2rem",
     vertical: "3rem"
-  },
-  radius: "6px"
+  }
 };
 
 export default theme;

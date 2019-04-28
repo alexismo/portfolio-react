@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import theme from "../../config/theme";
 
 const Wrapper = styled.footer`

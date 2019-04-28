@@ -1,78 +1,106 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
+import styled from "styled-components";
+import { animated, useSpring, config } from "react-spring";
+import MDXRenderer from "gatsby-mdx/mdx-renderer";
 import { graphql } from "gatsby";
-import Helmet from "react-helmet";
-import { Container, SEO, Layout } from "components";
-import sample from "lodash/sample";
-import config from "../../config/website";
+import Img from "gatsby-image";
+import { SEO, Container, Layout, Hero, BGImage } from "../components";
 import theme from "../../config/theme";
 
-const overlayColor = sample(theme.colors.overlay);
-
-const Wrapper = styled.section`
-  text-align: center;
-  position: relative;
-  width: 100%;
-  color: white;
-  padding: 8rem ${props => props.theme.spacer.horizontal};
-  margin-bottom: 6rem;
+const Content = styled(Container)`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  z-index: 3;
 `;
 
-const InformationWrapper = styled.div`
+const InformationWrapper = styled(animated.div)`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+`;
+
+const Title = styled(animated.h1)`
+  margin-top: 0;
 `;
 
 const InfoBlock = styled.div`
   display: flex;
   flex-direction: column;
-  margin: ${props => props.theme.spacer.vertical}
-    ${props => props.theme.spacer.horizontal} 0
-    ${props => props.theme.spacer.horizontal};
+  margin: 1rem 2rem 0 0;
+  div:first-child {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: ${props =>
+      props.customcolor ? props.customcolor : props.theme.colors.grey};
+  }
+  div:last-child {
+    font-size: 1rem;
+  }
 `;
 
-const Top = styled.div`
-  font-size: 80%;
-  margin-bottom: 0.5rem;
-  position: relative;
-  text-transform: uppercase;
-`;
-
-const Bottom = styled.div`
-  font-size: 125%;
-`;
-
-const Project = ({
-  pageContext: { slug },
-  data: { markdownRemark: postNode }
-}) => {
+const Project = ({ data: { mdx: postNode }, location }) => {
   const project = postNode.frontmatter;
+
+  const titleProps = useSpring({
+    config: config.slow,
+    from: { opacity: 0, transform: "translate3d(0, -30px, 0)" },
+    to: { opacity: 1, transform: "translate3d(0, 0, 0)" }
+  });
+  const infoProps = useSpring({
+    config: config.slow,
+    delay: 500,
+    from: { opacity: 0 },
+    to: { opacity: 1 }
+  });
+  const contentProps = useSpring({
+    config: config.slow,
+    delay: 1000,
+    from: { opacity: 0 },
+    to: { opacity: 1 }
+  });
+
+  const customColor = theme.overlay[project.color];
+
+  console.log(project);
+
   return (
-    <Layout>
-      <Helmet title={`${project.title} | ${config.siteTitle}`} />
-      <SEO postPath={slug} postNode={postNode} postSEO />
-      <Wrapper style={{ backgroundColor: overlayColor }}>
-        <h1>{project.title}</h1>
-        <InformationWrapper>
-          <InfoBlock>
-            <Top>Client</Top>
-            <Bottom>{project.client}</Bottom>
-          </InfoBlock>
-          <InfoBlock>
-            <Top>Date</Top>
-            <Bottom>{project.date}</Bottom>
-          </InfoBlock>
-          <InfoBlock>
-            <Top>Service</Top>
-            <Bottom>{project.service}</Bottom>
-          </InfoBlock>
-        </InformationWrapper>
-      </Wrapper>
+    <Layout pathname={location.pathname} customSEO>
+      <SEO pathname={location.pathname} postNode={postNode} article />
+      <Hero>
+        <BGImage customcolor={customColor}>
+          <Img fluid={project.cover.childImageSharp.fluid} alt="" />
+        </BGImage>
+        <Content type="text">
+          <Title data-testid="project-title" style={titleProps}>
+            {project.title}
+          </Title>
+          <InformationWrapper style={infoProps}>
+            <InfoBlock customcolor={customColor}>
+              <div>Client</div>
+              <div>{project.client}</div>
+            </InfoBlock>
+            <InfoBlock customcolor={customColor}>
+              <div>Date</div>
+              <div>{project.date}</div>
+            </InfoBlock>
+            <InfoBlock customcolor={customColor}>
+              <div>Role</div>
+              <div>{project.role}</div>
+            </InfoBlock>
+          </InformationWrapper>
+        </Content>
+      </Hero>
       <Container type="text">
-        <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
+        <animated.div style={contentProps}>
+          <MDXRenderer>{postNode.code.body}</MDXRenderer>
+        </animated.div>
       </Container>
     </Layout>
   );
@@ -81,34 +109,41 @@ const Project = ({
 export default Project;
 
 Project.propTypes = {
-  pageContext: PropTypes.shape({
-    slug: PropTypes.string.isRequired
-  }).isRequired,
   data: PropTypes.shape({
-    markdownRemark: PropTypes.object.isRequired
-  }).isRequired
+    mdx: PropTypes.object.isRequired
+  }).isRequired,
+  location: PropTypes.object.isRequired
 };
 
 export const pageQuery = graphql`
-  query ProjectPostBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
+  query($slug: String!) {
+    mdx(fields: { slug: { eq: $slug } }) {
+      code {
+        body
+      }
       excerpt
+      fields {
+        slug
+      }
+      parent {
+        ... on File {
+          mtime
+          birthtime
+        }
+      }
       frontmatter {
         title
         date(formatString: "DD.MM.YYYY")
         client
-        service
+        color
+        role
         cover {
           childImageSharp {
-            resize(width: 800) {
-              src
+            fluid(maxWidth: 1920, quality: 90) {
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }
-      }
-      fields {
-        slug
       }
     }
   }

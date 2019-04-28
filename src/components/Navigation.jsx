@@ -1,38 +1,68 @@
 import React from "react";
-import { Link } from "gatsby";
-import {
-  FaRegEnvelope,
-  FaInstagram,
-  FaGithub,
-  FaTwitter,
-  FaDribbble
-} from "react-icons/fa";
-import styled from "@emotion/styled";
-import { css } from "@emotion/core";
+import { Link, StaticQuery, graphql } from "gatsby";
+import { FaInstagram, FaBehance, FaDribbble } from "react-icons/fa";
+import styled from "styled-components";
 import config from "../../config/website";
 import theme from "../../config/theme";
 
-const Header = styled.div`
-  position: fixed;
-  width: 100%;
-  margin: 80px 0 0 0;
-  background-color: ${theme.colors.grey};
-  z-index: 100;
-  transition: ${theme.duration.short} cubic-bezier(0.2, 0.8, 0.2, 1);
-`;
-
-const HeaderContent = styled.div`
-  max-width: 960px;
-  height: 80px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, auto);
+const Wrapper = styled.header`
   align-items: center;
+  display: flex;
+  padding: 1rem 0 1rem 0;
+  position: relative;
+  z-index: 1000;
+  a {
+    color: ${theme.colors.black};
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    z-index: 100;
+    &:hover {
+      color: ${theme.brand.primary};
+    }
+  }
+  @media (max-width: ${theme.breakpoints.s}) {
+    padding: 1rem 0 1rem 0;
+    flex-wrap: wrap;
+  }
 `;
 
-const active = css`
-  color: ${theme.brand.primary} !important;
+const Nav = styled.nav`
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  padding: 0 ${theme.spacer.horizontal};
+  a:not(:first-child) {
+    margin-left: 1rem;
+  }
+  @media (max-width: ${theme.breakpoints.s}) {
+    padding: 0 1rem;
+  }
+  @media (max-width: ${theme.breakpoints.xs}) {
+    order: 2;
+  }
 `;
+
+const SocialMedia = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  padding: 0 ${theme.spacer.horizontal};
+  a {
+    font-size: 1.25rem;
+    line-height: 20px;
+  }
+  a:not(:first-child) {
+    margin-left: 1rem;
+  }
+  @media (max-width: ${theme.breakpoints.s}) {
+    padding: 0 1rem;
+  }
+  @media (max-width: ${theme.breakpoints.xs}) {
+    order: 3;
+  }
+`;
+
+// Grabs all MDX files from src/pages and puts them into the navigation
 
 const NameContainer = styled.div`
   width: calc(100% * (10 / 12));
@@ -43,7 +73,6 @@ const NameContainer = styled.div`
     font-size: 23px;
     color: ${theme.colors.white};
     text-decoration: none;
-    font-family: ${`${config.headerFontFamily}, sans-serif`};
     line-height: 1;
   }
   @media (max-width: ${theme.breakpoints.xs}) {
@@ -70,134 +99,60 @@ const JobName = styled.h2`
   margin: 0;
 `;
 
-const Nav = styled.nav`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  justify-content: flex-start;
-  a {
-    color: ${theme.colors.white};
-    text-align: center;
-    text-decoration: none;
-    font-weight: normal;
-    width: 50%;
-    &:hover {
-      font-weight: bold;
-    }
-  }
-  a:not(:first-child) {
-    margin-left: 1rem;
-  }
-  @media (max-width: ${theme.breakpoints.s}) {
-    padding: 0 1rem;
-  }
-  @media (max-width: ${theme.breakpoints.xs}) {
-    order: 2;
-  }
-`;
-
-const NavLinkStyle = { lineHeight: "80px", height: 80 };
-
-const SocialMedia = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-  a {
-    font-size: 1.25rem;
-    line-height: 20px;
-    color: ${theme.colors.white};
-    transition: ${`color ${theme.duration.short}, ease`};
-  }
-  a:hover {
-    color: ${theme.colors.link_color_hover};
-  }
-  a:not(:first-child) {
-    margin-left: 1rem;
-  }
-  @media (max-width: ${theme.breakpoints.s}) {
-    padding: 0 1rem;
-  }
-  @media (max-width: ${theme.breakpoints.xs}) {
-    order: 3;
-  }
-`;
-/*
-const Navigation = () => (
-  <Header>
-    <HeaderContent>
-      <NameContainer>
-        <Link to="/">
-          <Name>{config.siteTitle}</Name>
-          <JobName>Designer</JobName>
-        </Link>
-      </NameContainer>
-      <Nav>
-        <Link
-          style={NavLinkStyle}
-          to="/about"
-          activeClassName={css`
-            ${active};
-          `}
-        >
-          About
-        </Link>
-        <Link
-          style={NavLinkStyle}
-          to="/contact"
-          activeClassName={css`
-            ${active};
-          `}
-        >
-          Contact
-        </Link>
-      </Nav>
-      <SocialMedia>
-        <a
-          href="https://www.twitter.com/thealexismorin"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaTwitter />
-        </a>
-        <a
-          href="https://www.github.com/alexismo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaGithub />
-        </a>
-        <a
-          href="https://www.instagram.com/thealexismorin"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaInstagram />
-        </a>
-        <a
-          href="https://dribbble.com/alexismorin"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaDribbble />
-        </a>
-        <a href="mailto:mail@alexismorin.com">
-          <FaRegEnvelope />
-        </a>
-      </SocialMedia>
-    </HeaderContent>
-  </Header>
-);
-*/
-// writing the design for the 2019 design down here
-
 const Card = styled.div`
   background-color: ${theme.cardSurface};
   box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.15);
   border-radius: ${theme.radius};
   overflow: hidden;
 `;
+
+const NavigationOld = () => (
+  <StaticQuery
+    query={query}
+    render={data => (
+      <Wrapper data-testid="navigation">
+        <Nav>
+          {data.nav.edges.map((nav, index) => (
+            <Link
+              key={nav.node.fields.slug}
+              to={nav.node.fields.slug}
+              data-testid={`navItem-${index}`}
+              activeClassName="nav-active"
+            >
+              {nav.node.frontmatter.title}
+            </Link>
+          ))}
+        </Nav>
+        <SocialMedia>
+          <a
+            href="https://www.instagram.com/lekoarts.de"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <FaInstagram />
+          </a>
+          <a
+            href="https://www.behance.net/lekoarts"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Behance"
+          >
+            <FaBehance />
+          </a>
+          <a
+            href="https://dribbble.com/LeKoArts"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Dribbble"
+          >
+            <FaDribbble />
+          </a>
+        </SocialMedia>
+      </Wrapper>
+    )}
+  />
+);
 
 const Navigation = () => (
   <Card
@@ -211,7 +166,7 @@ const Navigation = () => (
     }}
   >
     <NameContainer>
-      <Link to="/">
+      <Link to="/" data-testid="home-title-link">
         <Name>{config.siteTitle}</Name>
         <JobName>Designer</JobName>
       </Link>
@@ -220,3 +175,20 @@ const Navigation = () => (
 );
 
 export default Navigation;
+
+const query = graphql`
+  query NavLinks {
+    nav: allMdx(filter: { fields: { sourceInstanceName: { eq: "pages" } } }) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+          }
+        }
+      }
+    }
+  }
+`;

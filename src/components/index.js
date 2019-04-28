@@ -1,20 +1,22 @@
-import "../utils/font-face.css"; //imports the fonts
+import "../styles/font-face.css"; //imports the fonts
+import BGImage from "./BGImage";
 import Container from "./Container";
 import Footer from "./Footer";
-import Header from "./Header";
+import Hero from "./Hero";
 import Layout from "./Layout";
 import Navigation from "./Navigation";
-import ProjectListing from "./ProjectListing";
-import Welcome from "./Welcome";
+import ProjectItem from "./ProjectItem";
 import SEO from "./SEO";
+import Welcome from "./Welcome";
 
 export {
+  BGImage,
   Container,
   Footer,
-  Header,
+  Hero,
   Layout,
   Navigation,
-  ProjectListing,
-  Welcome,
-  SEO
+  ProjectItem,
+  SEO,
+  Welcome
 };

@@ -1,88 +1,98 @@
-const config = require('./config/website');
+const config = require("./config/website");
 
-const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix;
+const pathPrefix = config.pathPrefix === "/" ? "" : config.pathPrefix;
 
 module.exports = {
   pathPrefix: config.pathPrefix,
   siteMetadata: {
-    siteUrl: config.siteUrl + pathPrefix,
+    siteUrl: config.siteUrl + pathPrefix
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-styled-components",
     {
-      resolve: 'gatsby-plugin-emotion',
+      resolve: "gatsby-source-filesystem",
       options: {
-        autoLabel: process.env.NODE_ENV !== 'production',
-        labelFormat: '[filename]--[local]',
-      },
+        name: "projects",
+        path: `${__dirname}/content/projects`
+      }
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: 'projects',
-        path: `${__dirname}/content/projects`,
-      },
+        name: "pages",
+        path: `${__dirname}/src/pages`
+      }
     },
     {
-      resolve: 'gatsby-transformer-remark',
+      resolve: "gatsby-mdx",
       options: {
-        plugins: [
+        extensions: [".mdx", ".md"],
+        gatsbyRemarkPlugins: [
           {
-            resolve: 'gatsby-remark-images',
+            resolve: "gatsby-remark-images",
             options: {
               maxWidth: 820,
               quality: 90,
-              linkImagesToOriginal: false,
-            },
+              linkImagesToOriginal: false
+            }
           },
           {
-            resolve: 'gatsby-remark-external-links',
+            resolve: "gatsby-remark-external-links",
             options: {
-              target: '_blank',
-              rel: 'nofollow noopener noreferrer',
-            },
+              target: "_blank",
+              rel: "nofollow noopener noreferrer"
+            }
           },
-          'gatsby-remark-responsive-iframe',
-        ],
-      },
+          {
+            resolve: "gatsby-remark-responsive-iframe",
+            options: {}
+          }
+        ]
+      }
     },
     {
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: "gatsby-plugin-google-analytics",
       options: {
-        trackingId: config.googleAnalyticsID,
-      },
+        trackingId: config.googleAnalyticsID
+      }
     },
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
+    "gatsby-plugin-lodash",
     {
-      resolve: 'gatsby-plugin-nprogress',
+      resolve: "gatsby-plugin-typography",
       options: {
-        color: config.themeColor,
-      },
+        pathToConfigModule: "src/styles/typography.jsx"
+      }
     },
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-lodash',
+    "gatsby-plugin-catch-links",
+    "gatsby-plugin-sitemap",
     {
-      resolve: 'gatsby-plugin-typography',
-      options: {
-        pathToConfigModule: 'src/utils/typography.jsx',
-      },
-    },
-    'gatsby-plugin-catch-links',
-    'gatsby-plugin-sitemap',
-    {
-      resolve: 'gatsby-plugin-manifest',
+      resolve: "gatsby-plugin-manifest",
       options: {
         name: config.siteTitle,
-        short_name: config.siteTitleAlt,
+        short_name: config.siteTitleShort,
         description: config.siteDescription,
         start_url: config.pathPrefix,
         background_color: config.backgroundColor,
         theme_color: config.themeColor,
-        display: 'standalone',
-        icon: 'src/favicon.png',
-      },
+        display: "standalone",
+        icons: [
+          {
+            src: "/favicons/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: "/favicons/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png"
+          }
+        ]
+      }
     },
-    'gatsby-plugin-offline',
-    'gatsby-plugin-netlify',
-  ],
+    "gatsby-plugin-offline",
+    "gatsby-plugin-netlify"
+  ]
 };
